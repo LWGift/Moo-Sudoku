@@ -34,6 +34,7 @@ const LANG_ZH_TW = {
 
     // 鍊推理
     chainExit: "返回",
+    chainUndo: "上一步",
     chain1: "鍊 1",
     chain2: "鍊 2",
     chain3: "鍊 3",

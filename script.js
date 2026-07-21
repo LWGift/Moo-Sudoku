@@ -1449,6 +1449,7 @@
         btnChainType.addEventListener("click", toggleChainType);
         btnChainClearOne.addEventListener("click", clearActiveChain);
         btnChainClearAll.addEventListener("click", clearAllChains);
+        document.getElementById("btn-chain-undo").addEventListener("click", undoChainNode);
 
         chainSelectBtns.forEach(btn => {
             btn.addEventListener("click", () => {
@@ -1628,6 +1629,17 @@
 
         updateChainTypeUI();
         selectedCell = null;
+        updateChainNumButtons();
+        renderPlayGrid();
+        renderChainOverlay();
+    }
+
+    function undoChainNode() {
+        const chain = chains[activeChainIdx];
+        if (chain.nodes.length === 0) return;
+        chain.nodes.pop();
+        selectedCell = null;
+        syncChainType();
         updateChainNumButtons();
         renderPlayGrid();
         renderChainOverlay();

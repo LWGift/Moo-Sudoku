@@ -34,6 +34,7 @@ const LANG_EN = {
 
     // Chain
     chainExit: "Back",
+    chainUndo: "Undo",
     chain1: "Chain 1",
     chain2: "Chain 2",
     chain3: "Chain 3",
