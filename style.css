@@ -539,7 +539,7 @@ h1 {
 .toolbar {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 8px;
     margin-bottom: 10px;
     flex-wrap: wrap;
@@ -549,6 +549,7 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 2px;
     padding: 8px 10px;
     border: 2px solid var(--color-border);
@@ -729,6 +730,10 @@ h1 {
     margin-top: 12px;
 }
 
+.footer-spacer {
+    height: 32px;
+}
+
 /* 按鈕通用 */
 .btn {
     padding: 10px 22px;
@@ -856,7 +861,7 @@ h1 {
 
     .container {
         max-width: 100%;
-        padding: 14px;
+        padding: 12px;
         border-radius: 8px;
     }
 
@@ -877,23 +882,35 @@ h1 {
         font-size: 0.45rem;
     }
 
+    /* 工具列：均分寬度填滿整排 */
+    .toolbar {
+        gap: 4px;
+    }
+
     .tool-btn {
-        min-width: 52px;
-        padding: 8px 10px;
+        flex: 1;
+        min-width: 0;
+        padding: 10px 4px;
     }
 
     .tool-btn .tool-icon {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
     }
 
     .tool-btn .tool-label {
-        font-size: 0.62rem;
+        font-size: 0.6rem;
+    }
+
+    /* 數字鍵：均分寬度填滿整排 */
+    .number-buttons {
+        gap: 3px;
     }
 
     .num-btn {
-        width: 44px;
-        height: 44px;
-        font-size: 1.1rem;
+        flex: 1;
+        min-width: 0;
+        height: 48px;
+        font-size: 1.2rem;
     }
 
     .btn {
@@ -912,13 +929,15 @@ h1 {
     }
 
     .num-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 0.9rem;
+        height: 42px;
+        font-size: 1rem;
     }
 
     .tool-btn {
-        min-width: 44px;
-        padding: 6px 8px;
+        padding: 8px 4px;
+    }
+
+    .tool-btn .tool-icon {
+        font-size: 1.1rem;
     }
 }
