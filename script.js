@@ -4,7 +4,8 @@
     "use strict";
 
     // ===== 多語系 =====
-    const STORAGE_KEY_LANG = "sudoku_lang";
+    const NS = "moo-sudoku:"; // localStorage namespace，避免與同源其他頁面衝突
+    const STORAGE_KEY_LANG = NS + "lang";
     const LANGS = [LANG_ZH_TW, LANG_EN]; // 新增語言只需加入此陣列
     let lang = LANG_EN; // 預設語言（無匹配時使用英文）
 
@@ -93,8 +94,8 @@
     let cellEls; // createGrid 後賦值
 
     // ===== 狀態 =====
-    const STORAGE_KEY_PUZZLE = "sudoku_puzzle";
-    const STORAGE_KEY_PLAYER = "sudoku_player";
+    const STORAGE_KEY_PUZZLE = NS + "puzzle";
+    const STORAGE_KEY_PLAYER = NS + "player";
     const MAX_UNDO = 10;
 
     let mode = "edit"; // "edit" 或 "play"
@@ -140,7 +141,7 @@
     }
 
     // ===== 暗色模式 =====
-    const STORAGE_KEY_DARK = "sudoku_dark";
+    const STORAGE_KEY_DARK = NS + "dark";
     const btnDarkMode = document.getElementById("btn-dark-mode");
 
     function initDarkMode() {
@@ -956,7 +957,9 @@
     // 清除所有資料
     function clearAllData() {
         if (!confirm(t("msgClearConfirm"))) return;
-        localStorage.clear();
+        Object.keys(localStorage)
+            .filter(k => k.startsWith(NS))
+            .forEach(k => localStorage.removeItem(k));
         puzzle = createEmptyBoard();
         playerValues = createEmptyBoard();
         playerPencils = createEmptyPencils();
