@@ -500,7 +500,7 @@
         cellEls.forEach(cell => {
             const row = parseInt(cell.dataset.row);
             const col = parseInt(cell.dataset.col);
-            cell.classList.remove("given", "selected", "conflict");
+            cell.classList.remove("given", "selected", "conflict", "highlight-same");
             cell.innerHTML = "";
 
             // 衝突標示
