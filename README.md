@@ -94,3 +94,7 @@ cd Moo-Sudoku
 ## 📄 License
 
 [MIT License](LICENSE)
+
+---
+
+*Built with the assistance of [Kiro](https://kiro.dev), an AI-powered development environment.*
