@@ -112,6 +112,7 @@
     let autoPencilUsed = false; // 自動鉛筆是否已使用
     let currentSeed = "";      // 目前題目的種子碼
     let inputMode = "num-first"; // 填入模式：num-first 或 cell-first
+    let submitConflicts = new Set(); // 提交答案時標示的衝突格
 
     // ===== 初始化 =====
     function init() {
@@ -561,7 +562,7 @@
             const col = parseInt(cell.dataset.col);
 
             cell.innerHTML = "";
-            cell.classList.remove("given", "selected", "highlight-related", "highlight-same");
+            cell.classList.remove("given", "selected", "highlight-related", "highlight-same", "conflict");
 
             // 判斷此格是否含有選中數字（題目或玩家答案）
             const cellValue = puzzle[row][col] || playerValues[row][col];
@@ -585,6 +586,10 @@
                 valEl.className = "cell-value";
                 valEl.textContent = playerValues[row][col];
                 cell.appendChild(valEl);
+                // 提交後標示衝突格
+                if (submitConflicts.has(row * 9 + col)) {
+                    cell.classList.add("conflict");
+                }
             } else if (pencilVisible) {
                 // 預選數（鉛筆開關開啟時才顯示）
                 const pencilGrid = document.createElement("div");
@@ -656,6 +661,11 @@
 
     // 將數字填入指定格子
     function applyNumber(row, col, num, isPencil) {
+        // 修改任何格子時清除提交衝突標示
+        if (submitConflicts.size > 0) {
+            submitConflicts = new Set();
+            clearMessage();
+        }
         if (num === 0) {
             // 橡皮擦模式：清除格子
             pushUndo(row, col);
@@ -803,6 +813,7 @@
         });
 
         saveData();
+        submitConflicts = new Set();
         renderPlayGrid();
         clearMessage();
     }
@@ -830,9 +841,12 @@
         // 驗證規則
         if (validateComplete(board)) {
             selectedNum = -1;
+            submitConflicts = new Set();
             updateNumButtons();
             showMessage(t("msgCorrect"), true, true);
         } else {
+            submitConflicts = findConflicts(board);
+            renderPlayGrid();
             showMessage(t("msgWrong"), false);
         }
     }
