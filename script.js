@@ -360,6 +360,13 @@
         // 讀取輸入框的值作為題目
         readPuzzleFromInputs();
 
+        // 檢查題目數字是否足夠
+        const filled = puzzle.flat().filter(v => v !== 0).length;
+        if (filled < 17) {
+            showMessage(t("msgPuzzleTooFew"), false);
+            return;
+        }
+
         // 檢查題目合理性
         conflictCells = findConflicts(puzzle);
         if (conflictCells.size > 0) {
@@ -440,6 +447,9 @@
         selectedNum = -1;
         selectedCell = null;
         currentSeed = "";
+
+        // 清空種子輸入欄
+        seedInput.value = "";
 
         // 退出鍊模式
         chainMode = false;

@@ -91,6 +91,8 @@ const LANG_ZH_TW = {
     msgWrong: "答案不正確，請再檢查。",
     msgLoadFail: "載入存檔失敗，使用預設值",
     msgClearConfirm: "確定要清除所有資料嗎？題目和進度都會被刪除。",
+    msgPuzzleEmpty: "請先填入題目數字。",
+    msgPuzzleTooFew: "題目至少需要 17 個數字才可能有唯一解。",
     msgPuzzleConflict: "題目有衝突，請檢查重複的數字。",
     msgPuzzleNoSolution: "此題目無解，請修正。",
     msgInvalidSeed: "種子碼格式不正確（例：M-K7X3NP）",

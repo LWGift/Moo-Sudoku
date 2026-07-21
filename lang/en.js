@@ -91,6 +91,8 @@ const LANG_EN = {
     msgWrong: "Incorrect answer, please check again.",
     msgLoadFail: "Failed to load save data, using defaults",
     msgClearConfirm: "Clear all data? Puzzle and progress will be deleted.",
+    msgPuzzleEmpty: "Please enter at least one number before starting.",
+    msgPuzzleTooFew: "A valid puzzle requires at least 17 clues.",
     msgPuzzleConflict: "Puzzle has conflicts. Please check for duplicates.",
     msgPuzzleNoSolution: "This puzzle has no solution. Please fix it.",
     msgInvalidSeed: "Invalid seed format (e.g. M-K7X3NP)",
