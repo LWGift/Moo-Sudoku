@@ -4,7 +4,7 @@ const LANG_ZH_TW = {
     name: "繁體中文",
 
     // 頁面
-    appTitle: "數獨解題器",
+    appTitle: "Moo-Sudoku",
 
     // 模式
     btnStart: "開始解題",

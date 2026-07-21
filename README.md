@@ -1,85 +1,96 @@
-# 數獨解題器 Sudoku Solver
+# Moo-Sudoku
 
-純前端數獨遊戲，支援自動出題、手動輸入、種子分享、鍊推理輔助等功能。
+A pure front-end Sudoku game with puzzle generation, seed sharing, pencil marks, and chain reasoning.
 
-## 功能特色
+> 純前端數獨遊戲，支援自動出題、種子分享、鉛筆標記與鍊推理。
 
-- **自動出題**：五種難度（簡單 / 中等 / 困難 / 專家 / 極限），使用回溯法生成唯一解題目
-- **種子系統**：每個題目有唯一種子碼，透過 URL 或種子碼分享題目
-- **自訂題目**：手動輸入題目並自動生成分享碼
-- **兩種填入模式**：先選數字再點格子 / 先選格子再按數字
-- **輔助功能**：數字高亮、自動移除預選數、數字完成提示
-- **鉛筆標記**：手動或自動填入預選數，可切換顯示/隱藏
-- **鍊推理**：支援三條獨立推理鍊，視覺化強弱鍊連線
-- **多語系**：繁體中文 / English，自動偵測瀏覽器語言
-- **暗色模式**：預設暗色，可切換亮色
-- **響應式設計**：桌面與手機裝置適配
-- **本地存檔**：進度自動存入 localStorage
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![No dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
 
-## 檔案結構
+## ✨ Features
+
+- **Puzzle Generation** — Five difficulty levels (Easy / Medium / Hard / Expert / Extreme), guaranteed unique solution via backtracking
+- **Seed System** — Every puzzle has a unique seed code; share via URL or seed string
+- **Custom Puzzles** — Enter any puzzle manually and get an auto-generated share code
+- **Two Input Modes** — Number-first or Cell-first
+- **Assist Mode** — Number highlighting and automatic pencil mark removal
+- **Pencil Marks** — Fill manually or via Auto Pencil; toggle visibility anytime
+- **Chain Reasoning** — Three independent chains with strong/weak link visualization
+- **i18n** — Traditional Chinese & English; auto-detects browser language
+- **Dark Mode** — Dark by default, toggleable
+- **Responsive** — Works on desktop and mobile
+- **Local Save** — Progress auto-saved to `localStorage`
+
+## 🚀 Getting Started
+
+No server or build tools required. Just open `index.html` in any browser.
+
+```bash
+git clone https://github.com/your-username/Moo-Sudoku.git
+cd Moo-Sudoku
+# open index.html in your browser
+```
+
+## 🎮 How to Play
+
+### Generate a Puzzle
+1. Select a difficulty and click **Generate**
+2. Or enter a seed code (e.g. `M-K7X3NP`) in the seed field and press Enter
+3. Or type numbers directly into the grid and click **Start**
+
+### Share a Puzzle
+- The URL automatically includes a `?seed=` parameter while playing — just copy and share it
+- Click the seed code to copy it to clipboard
+
+### Seed Format
+
+| Format | Description |
+|--------|-------------|
+| `E-XXXXXX` | Easy |
+| `M-XXXXXX` | Medium |
+| `H-XXXXXX` | Hard |
+| `X-XXXXXX` | Expert |
+| `Z-XXXXXX` | Extreme |
+| `C-xxxxxxx` | Custom puzzle (compressed encoding) |
+
+### Controls
+
+| Action | Desktop | Mobile |
+|--------|---------|--------|
+| Fill answer | Select number → left click cell | Select number → tap cell |
+| Fill pencil mark | Select number → right click cell | Enable Pencil Mode → tap cell |
+| Erase cell | Select eraser → click cell | Same |
+| Clear all answers | Long press eraser | Same |
+| Clear all pencil marks | Long press pencil toggle | Same |
+| Deselect number | Click selected number again | Same |
+
+## 📁 File Structure
 
 ```
-├── index.html       # 頁面結構
-├── style.css        # 樣式（含暗色模式、響應式）
-├── script.js        # 遊戲邏輯
+├── index.html       # Page structure
+├── style.css        # Styles (dark mode, responsive)
+├── script.js        # Game logic
 ├── lang/
-│   ├── zh-TW.js     # 繁體中文語言包
-│   └── en.js        # 英文語言包
+│   ├── zh-TW.js     # Traditional Chinese language pack
+│   └── en.js        # English language pack
 └── README.md
 ```
 
-## 使用方式
+## 🌐 Adding a Language
 
-直接用瀏覽器開啟 `index.html` 即可，不需要伺服器或建置工具。
+1. Create a new file in `lang/` (e.g. `lang/ja.js`)
+2. Define a language object following the existing format (e.g. `const LANG_JA = { ... }`)
+3. Add `<script src="lang/ja.js"></script>` in `index.html`
+4. Add `LANG_JA` to the `LANGS` array in `script.js`
 
-### 出題
+## 🔧 Technical Notes
 
-1. 選擇難度，點擊「自動出題」
-2. 或在種子欄輸入種子碼（如 `M-K7X3NP`）按 Enter 載入
-3. 或手動在格線中輸入數字後按「開始解題」
+- Pure HTML / CSS / JavaScript — zero dependencies
+- Mulberry32 PRNG for reproducible seeds
+- Unique-solution validation via backtracking (stops at 2 solutions)
+- Custom board compression algorithm for seed encoding
+- CSS variables for theming; `color-mix()` for highlight overlays
 
-### 分享題目
+## 📄 License
 
-- 解題時網址會自動帶上 `?seed=` 參數，直接複製網址即可分享
-- 點擊種子碼可複製種子碼本身
-
-### 種子格式
-
-| 格式 | 說明 |
-|------|------|
-| `E-XXXXXX` | 簡單（E）+ 6 位隨機碼 |
-| `M-XXXXXX` | 中等（M） |
-| `H-XXXXXX` | 困難（H） |
-| `X-XXXXXX` | 專家（X） |
-| `Z-XXXXXX` | 極限（Z） |
-| `C-xxxxxxx` | 自訂題目（壓縮編碼） |
-
-### 操作說明
-
-| 操作 | 桌面 | 手機 |
-|------|------|------|
-| 填入答案 | 選數字 → 左鍵點格子 | 選數字 → 點格子 |
-| 填入預選 | 選數字 → 右鍵點格子 | 開啟鉛筆模式 → 點格子 |
-| 清除格子 | 選橡皮擦 → 點格子 | 同左 |
-| 清除所有輸入 | 長按橡皮擦 | 同左 |
-| 清除所有鉛筆 | 長按鉛筆開關 | 同左 |
-| 取消選取 | 再次點擊已選數字 | 同左 |
-
-## 新增語言
-
-1. 在 `lang/` 資料夾新增語言檔（如 `lang/ja.js`）
-2. 照現有格式定義語言物件（如 `const LANG_JA = { ... }`）
-3. 在 `index.html` 中加入 `<script src="lang/ja.js"></script>`
-4. 在 `script.js` 的 `LANGS` 陣列中加入 `LANG_JA`
-
-## 技術細節
-
-- 純 HTML / CSS / JavaScript，無外部依賴
-- 使用 Mulberry32 偽隨機數產生器確保種子可重現
-- 唯一解驗證使用回溯法計數（找到 2 解即停止）
-- 盤面編碼使用自訂壓縮演算法（空格 + 數字合併編碼）
-- CSS 變數實現主題切換，`color-mix()` 實現高亮遮罩
-
-## 授權
-
-MIT License
+[MIT License](LICENSE)

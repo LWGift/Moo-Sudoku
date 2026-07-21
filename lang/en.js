@@ -4,7 +4,7 @@ const LANG_EN = {
     name: "English",
 
     // Page
-    appTitle: "Sudoku Solver",
+    appTitle: "Moo-Sudoku",
 
     // Mode
     btnStart: "Start",

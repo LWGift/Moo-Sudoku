@@ -1,4 +1,4 @@
-// 數獨解題器 - 玩家互動版
+// Moo-Sudoku - 玩家互動版
 
 (function () {
     "use strict";
