@@ -1,0 +1,924 @@
+/* ===== 色彩變數 ===== */
+:root {
+    /* 主色調 */
+    --color-primary: #3498db;
+    --color-primary-hover: #2980b9;
+    --color-primary-shadow: rgba(52, 152, 219, 0.4);
+
+    /* 強調色（出題按鈕） */
+    --color-accent: #8e44ad;
+    --color-accent-hover: #6c3483;
+
+    /* 預選模式色 */
+    --color-pencil: #e67e22;
+
+    /* 危險/錯誤 */
+    --color-danger: #e74c3c;
+    --color-danger-hover: #c0392b;
+
+    /* 成功 */
+    --color-success: #27ae60;
+
+    /* 深色文字 */
+    --color-text-dark: #2c3e50;
+    --color-text-muted: #7f8c8d;
+    --color-text-hint: #999999;
+
+    /* 背景 */
+    --color-bg-page: #f0f4f8;
+    --color-bg-card: #ffffff;
+    --color-bg-hover: #f5f8fa;
+    --color-bg-selected: #d4efff;
+    --color-bg-focus: #ebf5fb;
+    --color-bg-secondary: #ecf0f1;
+    --color-bg-secondary-hover: #dfe6e9;
+
+    /* 工具按鈕 */
+    --color-tool-inactive: #bdc3c7;
+    --color-tool-active: #2c3e50;
+    --color-tool-bg-active: #ebf5fb;
+    --color-tool-disabled: #dcdde1;
+
+    /* 邊框 */
+    --color-border: #bdc3c7;
+    --color-border-bold: #2c3e50;
+
+    /* 陰影 */
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 暗色模式 */
+[data-theme="dark"] {
+    --color-primary: #5dade2;
+    --color-primary-hover: #3498db;
+    --color-primary-shadow: rgba(93, 173, 226, 0.4);
+
+    --color-accent: #af7ac5;
+    --color-accent-hover: #8e44ad;
+
+    --color-pencil: #f0b27a;
+
+    --color-danger: #ec7063;
+    --color-danger-hover: #e74c3c;
+
+    --color-success: #58d68d;
+
+    --color-text-dark: #ecf0f1;
+    --color-text-muted: #b2bec3;
+    --color-text-hint: #95a5a6;
+
+    --color-bg-page: #1a1a2e;
+    --color-bg-card: #2d2d44;
+    --color-bg-hover: #3d3d5c;
+    --color-bg-selected: #1a3a5c;
+    --color-bg-focus: #2a3a4c;
+    --color-bg-secondary: #3d3d5c;
+    --color-bg-secondary-hover: #4d4d6c;
+
+    --color-tool-inactive: #636e72;
+    --color-tool-active: #dfe6e9;
+    --color-tool-bg-active: #2a3a4c;
+    --color-tool-disabled: #4d4d6c;
+
+    --color-border: #4d4d6c;
+    --color-border-bold: #b2bec3;
+
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ===== 基礎重設 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Microsoft JhengHei", "PingFang TC", sans-serif;
+    background: var(--color-bg-page);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.container {
+    background: var(--color-bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    color: var(--color-text-dark);
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+/* 標題列 */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.top-bar h1 {
+    flex: 1;
+    text-align: center;
+}
+
+.top-bar-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-bg-card);
+    cursor: pointer;
+    font-size: 1rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+
+.top-bar-btn:hover {
+    background: var(--color-bg-hover);
+}
+
+.help-btn {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--color-text-hint);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-text-hint);
+    font-size: 0.7rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 6px;
+    vertical-align: middle;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.help-btn:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+/* 說明視窗 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--color-bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 420px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: var(--shadow-card);
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    background: transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--color-text-dark);
+}
+
+.modal-body {
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--color-text-dark);
+    line-height: 1.6;
+}
+
+.modal-body h2 {
+    font-size: 1rem;
+    margin: 12px 0 6px;
+    color: var(--color-primary);
+}
+
+.modal-body h2:first-child {
+    margin-top: 0;
+}
+
+.modal-body ul {
+    padding-left: 1.2em;
+    margin: 4px 0;
+}
+
+.modal-body li {
+    margin: 3px 0;
+}
+
+.lang-select {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    background: var(--color-bg-card);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    outline: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* 操作列 */
+.action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.action-bar .btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 6px;
+}
+
+/* 滑動開關 */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-bg-card);
+}
+
+.toggle-label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: var(--color-text-muted);
+    transition: color 0.2s;
+}
+
+.toggle-label-left {
+    color: var(--color-primary);
+}
+
+.toggle-switch.cell-first .toggle-label-left {
+    color: var(--color-text-muted);
+}
+
+.toggle-switch.cell-first .toggle-label-right {
+    color: var(--color-primary);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-primary);
+    border-radius: 20px;
+    transition: background 0.2s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background: var(--color-bg-card);
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(16px);
+}
+
+.difficulty-select {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-bg-card);
+    color: var(--color-text-dark);
+    cursor: pointer;
+    outline: none;
+}
+
+.difficulty-select:focus {
+    border-color: var(--color-primary);
+}
+
+.btn-accent {
+    background: var(--color-accent);
+    color: var(--color-bg-card);
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+.btn-accent:hover {
+    background: var(--color-accent-hover);
+}
+
+.seed-input {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-bg-card);
+    color: var(--color-text-dark);
+    text-align: center;
+    width: 140px;
+    letter-spacing: 1px;
+    outline: none;
+    text-transform: uppercase;
+}
+
+.seed-input::placeholder {
+    color: var(--color-text-hint);
+    text-transform: none;
+}
+
+.seed-display {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    padding: 6px 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    background: var(--color-bg-card);
+    max-width: 120px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 數獨格線 */
+.sudoku-grid-wrapper {
+    position: relative;
+    margin: 0 auto 16px;
+    max-width: 450px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
+.sudoku-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    width: 100%;
+    height: 100%;
+    border: 3px solid var(--color-border-bold);
+}
+
+.chain-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.cell {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.15s;
+    overflow: hidden;
+}
+
+.cell:hover {
+    background: var(--color-bg-hover);
+}
+
+.cell.selected {
+    background: var(--color-bg-selected);
+}
+
+.cell.given {
+    background: var(--color-bg-card);
+    cursor: default;
+}
+
+.cell.conflict {
+    background: #fde8e8;
+}
+
+.cell.conflict input {
+    color: var(--color-danger);
+}
+
+.cell.given .cell-value {
+    color: var(--color-text-dark);
+    font-weight: bold;
+}
+
+.cell .cell-value {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    position: absolute;
+}
+
+.cell .pencil-marks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.cell .pencil-marks span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.55rem;
+    color: var(--color-text-muted);
+    font-weight: bold;
+}
+
+/* 3x3 宮格粗邊框 */
+.cell.border-right {
+    border-right: 3px solid var(--color-border-bold);
+}
+
+.cell.border-bottom {
+    border-bottom: 3px solid var(--color-border-bold);
+}
+
+/* 輸入題目模式：格子內的 input */
+.cell input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-text-dark);
+    background: transparent;
+    outline: none;
+    position: absolute;
+}
+
+.cell input:focus {
+    background: var(--color-bg-focus);
+}
+
+/* ===== 控制面板 ===== */
+.control-panel {
+    margin-bottom: 12px;
+}
+
+/* 工具列 */
+.toolbar {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.tool-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 8px 10px;
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-bg-card);
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 52px;
+}
+
+.tool-btn .tool-icon {
+    font-size: 1.2rem;
+    line-height: 1;
+    transition: all 0.15s;
+}
+
+.tool-btn .tool-label {
+    font-size: 0.65rem;
+    font-weight: bold;
+    color: var(--color-text-muted);
+    transition: color 0.15s;
+}
+
+/* 常態按鈕：永遠彩色可點 */
+.tool-btn-action {
+    border-color: var(--color-primary);
+}
+
+.tool-btn-action .tool-icon {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.tool-btn-action .tool-label {
+    color: var(--color-primary);
+}
+
+.tool-btn-action:hover {
+    background: var(--color-bg-focus);
+}
+
+/* 切換按鈕：關閉時灰色，開啟時亮色 */
+.tool-btn-toggle {
+    border-color: var(--color-tool-inactive);
+}
+
+.tool-btn-toggle .tool-icon {
+    filter: grayscale(100%);
+    opacity: 0.5;
+}
+
+.tool-btn-toggle .tool-label {
+    color: var(--color-tool-inactive);
+}
+
+.tool-btn-toggle.active {
+    border-color: var(--color-tool-active);
+    background: var(--color-tool-bg-active);
+}
+
+.tool-btn-toggle.active .tool-icon {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.tool-btn-toggle.active .tool-label {
+    color: var(--color-tool-active);
+}
+
+/* hover */
+.tool-btn:hover {
+    transform: scale(1.04);
+}
+
+/* 停用狀態（適用於任何按鈕） */
+.tool-btn.disabled {
+    border-color: var(--color-tool-disabled);
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.tool-btn.disabled:hover {
+    border-color: var(--color-tool-disabled);
+    transform: none;
+}
+
+.tool-btn.disabled .tool-icon {
+    filter: grayscale(100%);
+    opacity: 0.3;
+}
+
+/* 提交按鈕特殊樣式 */
+.tool-btn-submit {
+    border-color: var(--color-success);
+}
+
+.tool-btn-submit .tool-icon {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.tool-btn-submit .tool-label {
+    color: var(--color-success);
+}
+
+.tool-btn-submit:hover {
+    background: #eafaf1;
+}
+
+/* 預選按鈕啟用時 */
+.tool-btn-toggle.pencil-active {
+    border-color: var(--color-pencil);
+    background: #fef5e7;
+}
+
+.tool-btn-toggle.pencil-active .tool-icon {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+.tool-btn-toggle.pencil-active .tool-label {
+    color: var(--color-pencil);
+}
+
+/* 數字面板 */
+.number-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: nowrap;
+}
+
+.num-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: 2px solid var(--color-primary);
+    border-radius: 8px;
+    background: var(--color-bg-card);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+}
+
+.num-btn:hover {
+    background: var(--color-primary);
+    color: var(--color-bg-card);
+}
+
+.num-btn.active {
+    background: var(--color-primary);
+    color: var(--color-bg-card);
+    box-shadow: 0 2px 8px var(--color-primary-shadow);
+}
+
+.num-btn-erase {
+    border-color: var(--color-danger);
+    color: var(--color-danger);
+}
+
+.num-btn-erase:hover,
+.num-btn-erase.active {
+    background: var(--color-danger);
+    color: var(--color-bg-card);
+    border-color: var(--color-danger);
+}
+
+/* 數字已填滿 */
+.num-btn.num-complete {
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+/* 底部 */
+.footer-bar {
+    margin-top: 12px;
+}
+
+/* 按鈕通用 */
+.btn {
+    padding: 10px 22px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s, opacity 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.96);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-bg-card);
+}
+
+.btn-primary:hover {
+    background: var(--color-primary-hover);
+}
+
+.btn-secondary {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-dark);
+}
+
+.btn-secondary:hover {
+    background: var(--color-bg-secondary-hover);
+}
+
+.btn-danger {
+    background: var(--color-danger);
+    color: var(--color-bg-card);
+}
+
+.btn-danger:hover {
+    background: var(--color-danger-hover);
+}
+
+.btn-small {
+    padding: 8px 14px;
+    font-size: 0.85rem;
+}
+
+/* 訊息 */
+.message {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    min-height: 1.4em;
+    color: var(--color-danger);
+    font-weight: bold;
+}
+
+.message.success {
+    color: var(--color-success);
+}
+
+.message.highlight {
+    font-size: 1.3rem;
+    padding: 12px;
+    background: #eafaf1;
+    border: 2px solid var(--color-success);
+    border-radius: 8px;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* ===== 鍊推理 ===== */
+
+/* 輔助高亮：含有選中數字的格子 */
+.cell.highlight-same {
+    background: color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+/* 輔助高亮：預選數中匹配的數字 */
+.cell .pencil-marks span.pencil-highlight {
+    color: var(--color-bg-card);
+    background: var(--color-primary);
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* 鍊節點標記：圈起來的預選數 */
+.pencil-marks span.chain-node {
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 數字按鈕在鍊模式下的禁用 */
+.num-btn.chain-disabled {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+/* ===== 響應式 ===== */
+
+/* 桌面：隱藏手機元素 */
+@media (min-width: 521px) {
+    .mobile-only {
+        display: none !important;
+    }
+}
+
+/* 手機：隱藏桌面元素 */
+@media (max-width: 520px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    body {
+        padding: 8px;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 14px;
+        border-radius: 8px;
+    }
+
+    h1 {
+        font-size: 1.3rem;
+        margin-bottom: 8px;
+    }
+
+    .sudoku-grid-wrapper {
+        max-width: 100%;
+    }
+
+    .cell .cell-value {
+        font-size: 1.1rem;
+    }
+
+    .cell .pencil-marks span {
+        font-size: 0.45rem;
+    }
+
+    .tool-btn {
+        min-width: 46px;
+        padding: 6px 8px;
+    }
+
+    .tool-btn .tool-icon {
+        font-size: 1rem;
+    }
+
+    .tool-btn .tool-label {
+        font-size: 0.6rem;
+    }
+
+    .num-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .cell .cell-value {
+        font-size: 0.9rem;
+    }
+
+    .cell .pencil-marks span {
+        font-size: 0.4rem;
+    }
+
+    .num-btn {
+        width: 26px;
+        height: 26px;
+        font-size: 0.8rem;
+    }
+
+    .tool-btn {
+        min-width: 40px;
+        padding: 5px 6px;
+    }
+}

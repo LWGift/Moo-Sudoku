@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="appTitle">數獨解題器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 標題列 -->
+        <div class="top-bar">
+            <button id="btn-dark-mode" class="top-bar-btn" title="Dark Mode">🌙</button>
+            <h1><span data-i18n="appTitle">數獨解題器</span><button id="btn-help" class="help-btn" title="Help">?</button></h1>
+            <select id="lang-select" class="lang-select"></select>
+        </div>
+
+        <!-- 編輯模式操作列 -->
+        <div id="edit-bar" class="action-bar">
+            <select id="difficulty-select" class="difficulty-select">
+                <option value="easy" data-i18n="diffEasy">簡單</option>
+                <option value="medium" selected data-i18n="diffMedium">中等</option>
+                <option value="hard" data-i18n="diffHard">困難</option>
+                <option value="expert" data-i18n="diffExpert">專家</option>
+                <option value="extreme" data-i18n="diffExtreme">極限</option>
+            </select>
+            <input id="seed-input" class="seed-input" type="text" placeholder="種子碼" data-i18n-placeholder="seedPlaceholder">
+            <button id="btn-generate" class="btn btn-accent" data-i18n="btnGenerate">自動出題</button>
+            <button id="btn-start" class="btn btn-primary" data-i18n="btnStart">開始解題</button>
+        </div>
+
+        <!-- 解題模式操作列 -->
+        <div id="play-bar" class="action-bar hidden">
+            <div class="toggle-switch" id="input-mode-switch">
+                <span class="toggle-label toggle-label-left" data-i18n="inputModeNumFirst">先選數字</span>
+                <label class="switch">
+                    <input type="checkbox" id="input-mode-checkbox">
+                    <span class="slider"></span>
+                </label>
+                <span class="toggle-label toggle-label-right" data-i18n="inputModeCellFirst">先選格子</span>
+            </div>
+            <span id="seed-display" class="seed-display"></span>
+            <button id="btn-new-game" class="btn btn-small btn-secondary" data-i18n="btnNewGame">新遊戲</button>
+        </div>
+
+        <!-- 訊息顯示 -->
+        <p id="message" class="message hidden"></p>
+
+        <!-- 數獨格線 -->
+        <div class="sudoku-grid-wrapper">
+            <div class="sudoku-grid" id="sudoku-grid"></div>
+            <svg class="chain-svg" id="chain-svg"></svg>
+        </div>
+
+        <!-- 控制面板（解題模式才顯示） -->
+        <div id="control-panel" class="control-panel hidden">
+
+            <!-- 工具列：圖示按鈕 -->
+            <div class="toolbar" id="toolbar-normal">
+                <button id="btn-undo" class="tool-btn tool-btn-action" data-i18n-title="undo">
+                    <span class="tool-icon">↩</span>
+                    <span class="tool-label" data-i18n="undo">上一步</span>
+                </button>
+                <button id="btn-pencil-mode" class="tool-btn tool-btn-toggle mobile-only" data-i18n-title="pencilMode">
+                    <span class="tool-icon">📝</span>
+                    <span class="tool-label" data-i18n="pencilMode">鉛筆模式</span>
+                </button>
+                <button id="btn-assist" class="tool-btn tool-btn-toggle" data-i18n-title="assist">
+                    <span class="tool-icon">💡</span>
+                    <span class="tool-label" data-i18n="assist">輔助</span>
+                </button>
+                <button id="btn-auto-pencil" class="tool-btn tool-btn-action" data-i18n-title="autoPencil">
+                    <span class="tool-icon">✏️</span>
+                    <span class="tool-label" data-i18n="autoPencil">自動鉛筆</span>
+                </button>
+                <button id="btn-pencil-toggle" class="tool-btn tool-btn-toggle active" data-i18n-title="pencil">
+                    <span class="tool-icon">👁️</span>
+                    <span class="tool-label" data-i18n="pencil">鉛筆開關</span>
+                </button>
+                <button id="btn-chain-mode" class="tool-btn tool-btn-action" data-i18n-title="chain">
+                    <span class="tool-icon">🔗</span>
+                    <span class="tool-label" data-i18n="chain">鍊推理</span>
+                </button>
+                <button id="btn-submit" class="tool-btn tool-btn-submit" data-i18n-title="submitAnswer">
+                    <span class="tool-icon">✔️</span>
+                    <span class="tool-label" data-i18n="submit">提交</span>
+                </button>
+            </div>
+
+            <!-- 鍊推理面板 -->
+            <div class="toolbar hidden" id="toolbar-chain">
+                <button id="btn-chain-exit" class="tool-btn tool-btn-action" data-i18n-title="chainExit">
+                    <span class="tool-icon">✕</span>
+                    <span class="tool-label" data-i18n="chainExit">返回</span>
+                </button>
+                <button class="tool-btn tool-btn-toggle chain-select active" data-chain="0" data-i18n-title="chain1">
+                    <span class="tool-icon">①</span>
+                    <span class="tool-label" data-i18n="chain1">鍊 1</span>
+                </button>
+                <button class="tool-btn tool-btn-toggle chain-select" data-chain="1" data-i18n-title="chain2">
+                    <span class="tool-icon">②</span>
+                    <span class="tool-label" data-i18n="chain2">鍊 2</span>
+                </button>
+                <button class="tool-btn tool-btn-toggle chain-select" data-chain="2" data-i18n-title="chain3">
+                    <span class="tool-icon">③</span>
+                    <span class="tool-label" data-i18n="chain3">鍊 3</span>
+                </button>
+                <button id="btn-chain-type" class="tool-btn tool-btn-toggle" data-i18n-title="chainType">
+                    <span class="tool-icon" id="chain-type-icon">S</span>
+                    <span class="tool-label" id="chain-type-label" data-i18n="chainStrong">強</span>
+                </button>
+                <button id="btn-chain-clear-one" class="tool-btn tool-btn-action" data-i18n-title="chainClearOneTitle">
+                    <span class="tool-icon">🗑️</span>
+                    <span class="tool-label" data-i18n="chainClearOne">清此鍊</span>
+                </button>
+                <button id="btn-chain-clear-all" class="tool-btn tool-btn-action" data-i18n-title="chainClearAllTitle">
+                    <span class="tool-icon">🧹</span>
+                    <span class="tool-label" data-i18n="chainClearAll">清全部</span>
+                </button>
+            </div>
+
+            <!-- 數字選擇列 -->
+            <div class="number-buttons">
+                <button class="num-btn" data-num="1">1</button>
+                <button class="num-btn" data-num="2">2</button>
+                <button class="num-btn" data-num="3">3</button>
+                <button class="num-btn" data-num="4">4</button>
+                <button class="num-btn" data-num="5">5</button>
+                <button class="num-btn" data-num="6">6</button>
+                <button class="num-btn" data-num="7">7</button>
+                <button class="num-btn" data-num="8">8</button>
+                <button class="num-btn" data-num="9">9</button>
+                <button class="num-btn num-btn-erase" data-num="0">🧽</button>
+            </div>
+        </div>
+
+        <!-- 底部工具 -->
+        <div class="footer-bar">
+            <button id="btn-clear-data" class="btn btn-danger btn-small" data-i18n="btnClearData">清除所有資料</button>
+        </div>
+    </div>
+
+    <!-- 說明視窗 -->
+    <div id="help-modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="btn-help-close" class="modal-close">✕</button>
+            <div id="help-body" class="modal-body"></div>
+        </div>
+    </div>
+
+    <script src="lang/zh-TW.js"></script>
+    <script src="lang/en.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
