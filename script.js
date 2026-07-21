@@ -445,6 +445,8 @@
         undoStack = [];
         cachedAutoPencils = null;
         autoPencilUsed = false;
+        assistEnabled = false;
+        btnAssist.classList.remove("active");
         selectedNum = -1;
         selectedCell = null;
         currentSeed = "";
