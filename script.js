@@ -138,6 +138,13 @@
         }
 
         renderMode();
+
+        // 首次進入：沒有任何 moo-sudoku 的存檔就自動開啟說明
+        const isFirstVisit = !Object.keys(localStorage).some(k => k.startsWith(NS));
+        if (isFirstVisit) {
+            helpBody.innerHTML = t("helpContent");
+            helpModal.classList.remove("hidden");
+        }
     }
 
     // ===== 暗色模式 =====
